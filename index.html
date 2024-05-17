@@ -25,20 +25,37 @@
 </head>
 <body>
 	<h1>Bucket List Tracker</h1>
-	<ul class="bucket-list">
-		<li>
-			<input type="checkbox" id="item1">
-			<label for="item1">Travel to Europe</label>
-		</li>
-		<li>
-			<input type="checkbox" id="item2">
-			<label for="item2">Learn to play the guitar</label>
-		</li>
-		<li>
-			<input type="checkbox" id="item3">
-			<label for="item3">Run a marathon</label>
-		</li>
-		<!-- Add more items to the list here -->
+	<input id="task-input" type="text" placeholder="Add new task">
+	<ul id="task-list" class="bucket-list">
+		<!-- Tasks will be added here -->
 	</ul>
+
+	<script>
+		const inputElement = document.querySelector('#task-input');
+		const taskList = document.querySelector('#task-list');
+
+		inputElement.addEventListener('keydown', (event) => {
+			if (event.keyCode === 13) {
+				const taskText = inputElement.value;
+				const newTask = document.createElement('li');
+				newTask.textContent = taskText;
+				taskList.appendChild(newTask);
+				inputElement.value = '';
+			}
+		});
+
+		taskList.addEventListener('click', (event) => {
+			if (event.target.tagName === 'LI') {
+				event.target.classList.toggle('completed');
+			}
+		});
+
+		taskList.addEventListener('contextmenu', (event) => {
+			event.preventDefault();
+			if (event.target.tagName === 'LI') {
+				event.target.remove();
+			}
+		});
+	</script>
 </body>
 </html>
