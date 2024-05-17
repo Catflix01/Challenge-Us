@@ -1,13 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-	<h1> Ayaan Patel's site is hosted</h1>>
-  </body>
+<html>
+<head>
+	<title>Bucket List Tracker</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+		}
+		.bucket-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		.bucket-list li {
+			padding: 10px;
+			border-bottom: 1px solid #ccc;
+		}
+		.bucket-list li:last-child {
+			border-bottom: none;
+		}
+		.bucket-list li input[type="checkbox"] {
+			margin-right: 10px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Bucket List Tracker</h1>
+	<ul class="bucket-list">
+		<li>
+			<input type="checkbox" id="item1">
+			<label for="item1">Travel to Europe</label>
+		</li>
+		<li>
+			<input type="checkbox" id="item2">
+			<label for="item2">Learn to play the guitar</label>
+		</li>
+		<li>
+			<input type="checkbox" id="item3">
+			<label for="item3">Run a marathon</label>
+		</li>
+		<!-- Add more items to the list here -->
+	</ul>
+</body>
 </html>
