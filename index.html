@@ -12,7 +12,7 @@
             padding: 0;
         }
         header {
-            background-color: #3498db;
+            background-color: #e74c3c; /* Red theme */
             color: #fff;
             text-align: center;
             padding: 20px 0;
@@ -29,7 +29,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         button {
-            background-color: #3498db;
+            background-color: #e74c3c; /* Red theme */
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -37,7 +37,7 @@
             cursor: pointer;
         }
         button:hover {
-            background-color: #2980b9;
+            background-color: #c0392b; /* Darker shade of red */
         }
         #categories {
             margin-top: 20px;
@@ -65,11 +65,28 @@
     </main>
     <script>
         document.getElementById('generate-btn').addEventListener('click', function() {
-            // Generate dare logic goes here
-            // You can add your dare generation logic using JavaScript
-            // For simplicity, let's just display a placeholder text for now
             var dareContainer = document.getElementById('dare-container');
-            dareContainer.innerHTML = "<p>Do something daring!</p>";
+            var categories = document.getElementsByName('category');
+            var selectedCategories = [];
+            for (var i = 0; i < categories.length; i++) {
+                if (categories[i].checked) {
+                    selectedCategories.push(categories[i].value);
+                }
+            }
+            if (selectedCategories.length > 0) {
+                // Define dare categories and respective dares
+                var dareCategories = {
+                    "physical": ["Do 10 push-ups.", "Run around the block.", "Try a handstand."],
+                    "social": ["Start a conversation with a stranger.", "Compliment someone you don't know.", "Ask for a high-five from a passerby."],
+                    "creative": ["Draw a self-portrait blindfolded.", "Write a short poem about the weather.", "Create a dance to a random song."],
+                    // Add more dare categories and dares as needed
+                };
+                var randomCategory = selectedCategories[Math.floor(Math.random() * selectedCategories.length)];
+                var randomDare = dareCategories[randomCategory][Math.floor(Math.random() * dareCategories[randomCategory].length)];
+                dareContainer.innerHTML = "<p>" + randomDare + "</p>";
+            } else {
+                dareContainer.innerHTML = "<p>Please select at least one category.</p>";
+            }
         });
     </script>
 </body>
