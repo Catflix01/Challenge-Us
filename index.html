@@ -13,12 +13,13 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f8f9fa; /* Light gray */
+            color: #333; /* Dark gray */
         }
 
         /* Header Styles */
         header {
-            background-color: #c0392b; /* Red theme */
+            background-color: #007bff; /* Blue */
             color: #fff;
             text-align: center;
             padding: 20px 0;
@@ -36,7 +37,7 @@
 
         /* Button Styles */
         button {
-            background-color: #e74c3c; /* Darker shade of red */
+            background-color: #0069d9; /* Dark blue */
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -48,7 +49,7 @@
         }
 
         button:hover {
-            background-color: #c0392b; /* Even darker shade of red */
+            background-color: #0056b3; /* Even darker blue */
         }
 
         /* Categories Styles */
@@ -71,7 +72,7 @@
             margin-bottom: 10px;
             padding: 10px;
             border-radius: 4px;
-            background-color: #f2dede; /* Lighter shade of red */
+            background-color: #f1f1f1; /* Light gray */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
@@ -95,7 +96,7 @@
             margin-bottom: 5px;
             padding: 5px;
             border-radius: 4px;
-            background-color: #f2dede; /* Lighter shade of red */
+            background-color: #f1f1f1; /* Light gray */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
@@ -130,6 +131,7 @@
         </div>
     </main>
     <script>
+        // JavaScript code for generating dares
         var totalPoints = 0;
         var friends = [
             { name: "Friend 1", completedDares: [], points: 0 },
@@ -137,7 +139,6 @@
             // Add more friends as needed
         ];
 
-        // Define dare categories and respective dares with point values
         var dareCategories = {
             "physical": [
                 { dare: "Do 10 push-ups.", points: 10 },
@@ -157,7 +158,6 @@
             // Add more dare categories and dares as needed
         };
 
-        // Function to generate a random dare
         function generateDare() {
             var selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(checkbox => checkbox.value);
             if (selectedCategories.length === 0) {
@@ -167,13 +167,12 @@
             var category = selectedCategories[Math.floor(Math.random() * selectedCategories.length)];
             var dareList = dareCategories[category];
             if (!dareList || dareList.length === 0) {
-                return null; // No dares available in the selected category
+                return null;
             }
             var randomIndex = Math.floor(Math.random() * dareList.length);
-            return dareList.splice(randomIndex, 1)[0]; // Remove and return a random dare from the list
+            return dareList.splice(randomIndex, 1)[0];
         }
 
-        // Function to display the generated dare
         function displayDare(dare) {
             var dareContainer = document.getElementById('dare-container');
             var dareItem = document.createElement('div');
@@ -182,10 +181,9 @@
             dareContainer.appendChild(dareItem);
         }
 
-        // Event listener for the Generate Dare button
         document.getElementById('generate-btn').addEventListener('click', function() {
             var dareContainer = document.getElementById('dare-container');
-            dareContainer.innerHTML = ''; // Clear previous dares
+            dareContainer.innerHTML = '';
             var dare = generateDare();
             if (dare) {
                 displayDare(dare);
