@@ -105,7 +105,7 @@
             if (selectedCategories.length > 0) {
                 var randomCategory = selectedCategories[Math.floor(Math.random() * selectedCategories.length)];
                 var randomDare = dareCategories[randomCategory][Math.floor(Math.random() * dareCategories[randomCategory].length)];
-                dareContainer.innerHTML = "<div class='dare-item'><p>" + randomDare.dare + "</p><label><input type='checkbox'> Completed</label></div>";
+                dareContainer.innerHTML = "<div class='dare-item'><p>" + randomDare.dare + "</p><label><input type='checkbox'> Completed</label> - Points: " + randomDare.points + "</div>";
                 document.querySelector('.dare-item input[type="checkbox"]').addEventListener('change', function() {
                     if (this.checked) {
                         totalPoints += randomDare.points;
