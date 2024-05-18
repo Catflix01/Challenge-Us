@@ -26,12 +26,17 @@
             padding: 20px 0;
         }
 
+        h1 {
+            margin: 0;
+        }
+
         /* Main Content Styles */
         main {
-            height: calc(100% - 40px); /* Subtract header height */
+            min-height: calc(100% - 120px); /* Subtract header and footer heights */
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
 
         /* Button Styles */
@@ -63,8 +68,12 @@
 
         /* Dare Container Styles */
         .dare-container {
-            flex-grow: 1;
+            max-height: 300px;
             overflow-y: auto; /* Enable scrolling if needed */
+            width: 80%;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
         }
 
         .dare-item {
@@ -73,19 +82,37 @@
             border-radius: 4px;
             background-color: #f1f1f1; /* Light gray */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         .dare-item p {
             margin: 0;
         }
 
+        .dare-item .points {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-weight: bold;
+        }
+
         /* Points Container Styles */
         #points-container {
             text-align: center;
-            margin-top: auto; /* Push to bottom */
-            padding: 20px 0;
+            padding: 10px 0;
             background-color: #007bff; /* Blue */
             color: #fff;
+            width: 100%;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #007bff; /* Blue */
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
             width: 100%;
         }
     </style>
@@ -109,6 +136,9 @@
     <div id="points-container">
         Points: <span id="points">0</span>
     </div>
+    <footer>
+        <p>Made with ❤️ by Your Name</p>
+    </footer>
     <script>
         // JavaScript code for generating dares
         var totalPoints = 0;
@@ -117,29 +147,17 @@
             "physical": [
                 { dare: "Do 10 push-ups.", points: 10 },
                 { dare: "Run around the block.", points: 20 },
-                { dare: "Try a handstand.", points: 30 },
-                // Additional physical dares
-                { dare: "Do 20 squats.", points: 15 },
-                { dare: "Do a plank for 1 minute.", points: 25 },
-                // Add more physical dares as needed...
+                { dare: "Try a handstand.", points: 30 }
             ],
             "social": [
                 { dare: "Start a conversation with a stranger.", points: 15 },
                 { dare: "Compliment someone you don't know.", points: 20 },
-                { dare: "Ask for a high-five from a passerby.", points: 25 },
-                // Additional social dares
-                { dare: "Donate to a charity.", points: 30 },
-                { dare: "Share a meal with someone in need.", points: 35 },
-                // Add more social dares as needed...
+                { dare: "Ask for a high-five from a passerby.", points: 25 }
             ],
             "creative": [
                 { dare: "Draw a self-portrait blindfolded.", points: 20 },
                 { dare: "Write a short poem about the weather.", points: 25 },
-                { dare: "Create a dance to a random song.", points: 30 },
-                // Additional creative dares
-                { dare: "Make a sculpture out of recycled materials.", points: 35 },
-                { dare: "Write and perform a short skit.", points: 40 },
-                // Add more creative dares as needed...
+                { dare: "Create a dance to a random song.", points: 30 }
             ],
             // Add more dare categories and dares as needed
         };
@@ -163,7 +181,7 @@
             var dareContainer = document.getElementById('dare-container');
             var dareItem = document.createElement('div');
             dareItem.classList.add('dare-item');
-            dareItem.innerHTML = "<p>" + dare.dare + "</p><label><input type='checkbox' class='completed-checkbox'> Completed</label> - Points: " + dare.points;
+            dareItem.innerHTML = "<p>" + dare.dare + "</p><span class='points'>" + dare.points + " points</span><label><input type='checkbox' class='completed-checkbox'> Completed</label>";
             dareContainer.appendChild(dareItem);
         }
 
@@ -186,7 +204,7 @@
         document.getElementById('dare-container').addEventListener('click', function(event) {
             if (event.target && event.target.matches('.completed-checkbox')) {
                 var dareItem = event.target.closest('.dare-item');
-                var points = parseInt(dareItem.textContent.match(/Points: (\d+)/)[1]);
+                var points = parseInt(dareItem.textContent.match(/(\d+) points/)[1]);
                 updatePoints(points);
                 dareItem.remove();
             }
