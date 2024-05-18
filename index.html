@@ -84,24 +84,6 @@
             text-align: center;
             margin-top: 20px;
         }
-
-        /* Friends Container Styles */
-        #friends-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .friend-item {
-            margin-bottom: 5px;
-            padding: 5px;
-            border-radius: 4px;
-            background-color: #f1f1f1; /* Light gray */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .friend-item p {
-            margin: 0;
-        }
     </style>
 </head>
 <body>
@@ -122,21 +104,10 @@
         <div class="points-container" id="points-container">
             Points: <span id="points">0</span>
         </div>
-        <div id="friends-container">
-            <h2>Friends</h2>
-            <ul id="friends-list">
-                <!-- Friends will be listed here -->
-            </ul>
-            <div>
-                <input type="text" id="friend-name" placeholder="Friend's Name">
-                <button id="add-friend-btn">Add Friend</button>
-            </div>
-        </div>
     </main>
     <script>
         // JavaScript code for generating dares
         var totalPoints = 0;
-        var friends = [];
 
         var dareCategories = {
             "physical": [
@@ -185,23 +156,6 @@
             document.getElementById('points').textContent = totalPoints;
         }
 
-        function addFriend(name) {
-            var friend = { name: name, completedDares: [], points: 0 };
-            friends.push(friend);
-            updateFriendsList();
-        }
-
-        function updateFriendsList() {
-            var friendsList = document.getElementById('friends-list');
-            friendsList.innerHTML = '';
-            friends.forEach(function(friend) {
-                var friendItem = document.createElement('li');
-                friendItem.classList.add('friend-item');
-                friendItem.textContent = friend.name + " - Points: " + friend.points;
-                friendsList.appendChild(friendItem);
-            });
-        }
-
         document.getElementById('generate-btn').addEventListener('click', function() {
             var dareContainer = document.getElementById('dare-container');
             dareContainer.innerHTML = '';
@@ -218,27 +172,7 @@
                 var dareItem = event.target.closest('.dare-item');
                 var points = parseInt(dareItem.textContent.match(/Points: (\d+)/)[1]);
                 updatePoints(points);
-                var friendName = prompt("Enter friend's name:");
-                var friend = friends.find(friend => friend.name === friendName);
-                if (friend) {
-                    friend.completedDares.push(dareItem.textContent);
-                    friend.points += points;
-                    updateFriendsList();
-                } else {
-                    addFriend(friendName);
-                    friends[friends.length - 1].completedDares.push(dareItem.textContent);
-                    friends[friends.length - 1].points += points;
-                }
                 dareItem.remove();
-            }
-        });
-
-        document.getElementById('add-friend-btn').addEventListener('click', function() {
-            var friendNameInput = document.getElementById('friend-name');
-            var friendName = friendNameInput.value.trim();
-            if (friendName !== '') {
-                addFriend(friendName);
-                friendNameInput.value = '';
             }
         });
     </script>
