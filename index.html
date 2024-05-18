@@ -45,6 +45,9 @@
         label {
             margin-right: 10px;
         }
+        .dare-item {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -55,6 +58,9 @@
         <div id="dare-container">
             <!-- Dares will be displayed here -->
         </div>
+        <div id="points-container">
+            Points: <span id="points">0</span>
+        </div>
         <button id="generate-btn">Generate Dare</button>
         <div id="categories">
             <label><input type="checkbox" name="category" value="physical">Physical</label>
@@ -64,8 +70,31 @@
         </div>
     </main>
     <script>
+        var totalPoints = 0;
+
+        // Define dare categories and respective dares with point values
+        var dareCategories = {
+            "physical": [
+                { dare: "Do 10 push-ups.", points: 10 },
+                { dare: "Run around the block.", points: 20 },
+                { dare: "Try a handstand.", points: 30 }
+            ],
+            "social": [
+                { dare: "Start a conversation with a stranger.", points: 15 },
+                { dare: "Compliment someone you don't know.", points: 20 },
+                { dare: "Ask for a high-five from a passerby.", points: 25 }
+            ],
+            "creative": [
+                { dare: "Draw a self-portrait blindfolded.", points: 20 },
+                { dare: "Write a short poem about the weather.", points: 25 },
+                { dare: "Create a dance to a random song.", points: 30 }
+            ],
+            // Add more dare categories and dares as needed
+        };
+
         document.getElementById('generate-btn').addEventListener('click', function() {
             var dareContainer = document.getElementById('dare-container');
+            var pointsContainer = document.getElementById('points');
             var categories = document.getElementsByName('category');
             var selectedCategories = [];
             for (var i = 0; i < categories.length; i++) {
@@ -74,16 +103,11 @@
                 }
             }
             if (selectedCategories.length > 0) {
-                // Define dare categories and respective dares
-                var dareCategories = {
-                    "physical": ["Do 10 push-ups.", "Run around the block.", "Try a handstand."],
-                    "social": ["Start a conversation with a stranger.", "Compliment someone you don't know.", "Ask for a high-five from a passerby."],
-                    "creative": ["Draw a self-portrait blindfolded.", "Write a short poem about the weather.", "Create a dance to a random song."],
-                    // Add more dare categories and dares as needed
-                };
                 var randomCategory = selectedCategories[Math.floor(Math.random() * selectedCategories.length)];
                 var randomDare = dareCategories[randomCategory][Math.floor(Math.random() * dareCategories[randomCategory].length)];
-                dareContainer.innerHTML = "<p>" + randomDare + "</p>";
+                dareContainer.innerHTML = "<div class='dare-item'><p>" + randomDare.dare + "</p><label><input type='checkbox'> Completed</label></div>";
+                totalPoints += randomDare.points;
+                pointsContainer.textContent = totalPoints;
             } else {
                 dareContainer.innerHTML = "<p>Please select at least one category.</p>";
             }
