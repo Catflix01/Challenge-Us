@@ -5,13 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dare Generator</title>
     <style>
-        /* Reset CSS */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        /* CSS Styles */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -21,8 +15,7 @@
             padding: 0;
         }
 
-        /* Header */
-        header {
+        header, footer {
             background-color: #007bff;
             color: #fff;
             padding: 20px 0;
@@ -34,7 +27,6 @@
             margin: 0;
         }
 
-        /* Main Content */
         main {
             padding: 20px;
             text-align: center;
@@ -96,17 +88,87 @@
             color: #007bff;
         }
 
-        /* Footer */
-        footer {
-            background-color: #007bff;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
-
         footer p {
             margin: 0;
             font-size: 1em;
+        }
+
+        /* Awards Section Styles */
+        #awards {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            margin: 10px;
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        /* Form Styles */
+        #custom-dare-form {
+            margin-top: 20px;
+        }
+
+        #custom-dare-form input[type="text"],
+        #custom-dare-form input[type="number"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 80%;
+            font-size: 1em;
+        }
+
+        /* User Dares Section */
+        #user-dares {
+            margin-top: 50px;
+        }
+
+        #user-dares .dare-container {
+            background-color: #f7f7f7;
+            border-color: #bbb;
+        }
+
+        /* Settings Dropdown */
+        #settings-dropdown {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content label {
+            display: block;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown-content label:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown-content label input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        #settings-dropdown:hover .dropdown-content {
+            display: block;
         }
     </style>
 </head>
@@ -115,6 +177,14 @@
         <h1>Dare Generator</h1>
     </header>
     <main>
+        <div id="settings-dropdown">
+            <button>Settings</button>
+            <div class="dropdown-content">
+                <label><input type="checkbox" id="enable-categories" checked> Enable Dare Categories</label>
+                <label><input type="checkbox" id="enable-custom-dares" checked> Enable Custom Dares</label>
+                <label><input type="checkbox" id="enable-user-dares" checked> Enable User Dares</label>
+            </div>
+        </div>
         <div id="categories">
             <label><input type="checkbox" name="category" value="physical">Physical</label>
             <label><input type="checkbox" name="category" value="social">Social</label>
@@ -128,14 +198,38 @@
         <div id="points-container">
             <span id="total-points">Total Points: 0</span>
         </div>
+
+        <!-- Custom Dare Form -->
+        <form id="custom-dare-form">
+            <h2>Add Your Own Dare</h2>
+            <input type="text" id="custom-dare" placeholder="Enter your dare">
+            <input type="number" id="custom-points" placeholder="Enter points for the dare">
+            <button type="button" id="add-dare-btn">Add Dare</button>
+        </form>
     </main>
     <footer>
         <p>Made by Andy Goff, Rylan Garber, Ayaan Patel, Neil John</p>
     </footer>
+
+    <!-- Awards Section -->
+    <section id="awards">
+        <h2>Awards</h2>
+        <div class="badge-container" id="badge-container"></div>
+    </section>
+
+    <!-- User Dares Section -->
+    <section id="user-dares">
+        <h2>User Dares</h2>
+        <div class="dare-container" id="user-dare-container">
+            <!-- User-added dares will be displayed here -->
+        </div>
+    </section>
+
     <script>
         // JavaScript code for generating dares
         var totalPoints = 0;
         var completedDares = [];
+        var userDares = []; // Array to store user-added dares
 
         var dareCategories = {
             "physical": [
@@ -172,8 +266,8 @@
             return dareList.splice(randomIndex, 1)[0];
         }
 
-        function displayDare(dare) {
-            var dareContainer = document.getElementById('dare-container');
+        function displayDare(dare, containerId) {
+            var dareContainer = document.getElementById(containerId);
             var dareItem = document.createElement('div');
             dareItem.classList.add('dare-item');
             dareItem.innerHTML = "<p>" + dare.dare + "</p><span class='points'>" + dare.points + " points</span><label><input type='checkbox' class='completed-checkbox'> Completed</label>";
@@ -187,14 +281,61 @@
             });
             totalPoints = points;
             document.getElementById('total-points').textContent = "Total Points: " + totalPoints;
+            updateBadges(totalPoints);
         }
+
+        function updateBadges(totalPoints) {
+            const badgeContainer = document.getElementById('badge-container');
+            badgeContainer.innerHTML = '';
+
+            const badges = [
+                { points: 500, ascii: '¯\\_(ツ)_/¯' },
+                { points: 400, ascii: '(¬‿¬)' },
+                { points: 300, ascii: '(•‿•)' },
+                { points: 200, ascii: '(•◡•)' },
+                { points: 100, ascii: 'ಠ_ಠ' },
+                { points: 50, ascii: 'ʕ•ᴥ•ʔ' },
+                { points: 30, ascii: 'ಠ‿↼' },
+                { points: 20, ascii: 'ʘ‿ʘ' },
+                { points: 10, ascii: '✌(-‿-)✌' }
+                // Add more badges as needed
+            ];
+
+            badges.forEach(badge => {
+                if (totalPoints >= badge.points) {
+                    const badgeElement = document.createElement('div');
+                    badgeElement.classList.add('badge');
+                    badgeElement.textContent = badge.ascii;
+                    badgeContainer.appendChild(badgeElement);
+                }
+            });
+        }
+
+        function toggleElement(elementId, enabled) {
+            document.getElementById(elementId).style.display = enabled ? 'block' : 'none';
+        }
+
+        // Toggle Dare Categories
+        document.getElementById('enable-categories').addEventListener('change', function() {
+            toggleElement('categories', this.checked);
+        });
+
+        // Toggle Custom Dare Form
+        document.getElementById('enable-custom-dares').addEventListener('change', function() {
+            toggleElement('custom-dare-form', this.checked);
+        });
+
+        // Toggle User Dares Section
+        document.getElementById('enable-user-dares').addEventListener('change', function() {
+            toggleElement('user-dares', this.checked);
+        });
 
         document.getElementById('generate-btn').addEventListener('click', function() {
             var dareContainer = document.getElementById('dare-container');
             dareContainer.innerHTML = '';
             var dare = generateDare();
             if (dare) {
-                displayDare(dare);
+                displayDare(dare, 'dare-container');
             } else {
                 dareContainer.textContent = 'Out of dares';
             }
@@ -215,7 +356,30 @@
                     });
                 }
                 updatePoints();
+                dareItem.remove();
             }
+        });
+
+        document.getElementById('add-dare-btn').addEventListener('click', function() {
+            var customDareInput = document.getElementById('custom-dare');
+            var customPointsInput = document.getElementById('custom-points');
+            var customDare = customDareInput.value.trim();
+            var customPoints = parseInt(customPointsInput.value);
+
+            if (customDare && !isNaN(customPoints) && customPoints > 0) {
+                userDares.push({ dare: customDare, points: customPoints });
+                customDareInput.value = '';
+                customPointsInput.value = '';
+                alert('Custom dare added successfully!');
+                displayDare({ dare: customDare, points: customPoints }, 'user-dare-container');
+            } else {
+                alert('Please enter a valid dare and points.');
+            }
+        });
+
+        userDares.forEach(function(dare, index) {
+            displayDare(dare, 'user-dare-container');
+            document.querySelector('#user-dare-container .dare-item:last-child').dataset.index = index;
         });
     </script>
 </body>
