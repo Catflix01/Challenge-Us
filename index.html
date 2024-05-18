@@ -5,21 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dare Generator</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+        /* General Styles */
+        body, h1 {
             margin: 0;
             padding: 0;
         }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* Header Styles */
         header {
-            background-color: #3498db;
+            background-color: #c0392b; /* Red theme */
             color: #fff;
             text-align: center;
             padding: 20px 0;
         }
-        h1 {
-            margin: 0;
-        }
+
+        /* Main Content Styles */
         main {
             max-width: 600px;
             margin: 20px auto;
@@ -28,54 +33,72 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
+        /* Button Styles */
         button {
-            background-color: #2980b9;
+            background-color: #e74c3c; /* Darker shade of red */
             color: #fff;
             border: none;
             padding: 10px 20px;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
+            display: block;
+            margin: 20px auto;
         }
+
         button:hover {
-            background-color: #1f618d;
+            background-color: #c0392b; /* Even darker shade of red */
         }
+
+        /* Categories Styles */
         #categories {
-            margin-top: 20px;
             display: flex;
             justify-content: center;
+            margin-bottom: 20px;
         }
+
         label {
             margin-right: 10px;
         }
+
+        /* Dare Container Styles */
         .dare-container {
             margin-top: 20px;
         }
+
         .dare-item {
             margin-bottom: 10px;
             padding: 10px;
             border-radius: 4px;
-            background-color: #ecf0f1;
+            background-color: #f2dede; /* Lighter shade of red */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .dare-item p {
             margin: 0;
         }
+
+        /* Points Container Styles */
         .points-container {
             text-align: center;
             margin-top: 20px;
         }
+
+        /* Friends Container Styles */
         #friends-container {
-            margin-top: 20px;
             text-align: center;
+            margin-top: 20px;
         }
+
         .friend-item {
             margin-bottom: 5px;
             padding: 5px;
             border-radius: 4px;
-            background-color: #ecf0f1;
+            background-color: #f2dede; /* Lighter shade of red */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .friend-item p {
             margin: 0;
         }
@@ -132,4 +155,44 @@
                 { dare: "Create a dance to a random song.", points: 30 }
             ],
             // Add more dare categories and dares as needed
-       
+        };
+
+        // Function to generate a random dare
+        function generateDare() {
+            var selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(checkbox => checkbox.value);
+            if (selectedCategories.length === 0) {
+                alert("Please select at least one category.");
+                return;
+            }
+            var category = selectedCategories[Math.floor(Math.random() * selectedCategories.length)];
+            var dareList = dareCategories[category];
+            if (!dareList || dareList.length === 0) {
+                alert("No dares available in the selected category.");
+                return;
+            }
+            var randomIndex = Math.floor(Math.random() * dareList.length);
+            var randomDare = dareList[randomIndex];
+            return randomDare;
+        }
+
+        // Function to display the generated dare
+        function displayDare(dare) {
+            var dareContainer = document.getElementById('dare-container');
+            var dareItem = document.createElement('div');
+            dareItem.classList.add('dare-item');
+            dareItem.innerHTML = "<p>" + dare.dare + "</p><label><input type='checkbox'> Completed</label> - Points: " + dare.points;
+            dareContainer.appendChild(dareItem);
+        }
+
+        // Event listener for the Generate Dare button
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            var dareContainer = document.getElementById('dare-container');
+            dareContainer.innerHTML = ''; // Clear previous dares
+            var dare = generateDare();
+            if (dare) {
+                displayDare(dare);
+            }
+        });
+    </script>
+</body>
+</html>
