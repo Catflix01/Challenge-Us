@@ -59,10 +59,13 @@
     <h2>Welcome to Bucket List Tracker!</h2>
     <p>Start adding your dreams and goals to your bucket list now.</p>
     <button id="addTaskBtn">Add New Item</button>
-    <h3>Your Bucket List</h3>
-    <ul id="bucketList">
-        <!-- Bucket list items will be added here dynamically -->
-    </ul>
+    <select id="taskDropdown">
+        <option value="">Select a task</option>
+        <!-- Dropdown options will be added here dynamically -->
+    </select>
+    <input type="file" id="taskImageInput" style="display: none;">
+    <label for="taskImageInput">Upload Image</label>
+    <div id="taskImagePreview"></div>
 </section>
 
 <footer>
@@ -70,26 +73,34 @@
 </footer>
 
 <script>
+    var tasks = []; // Array to store tasks
+
     document.getElementById('addTaskBtn').addEventListener('click', function() {
         var task = prompt('Enter your new task:');
         if (task) {
-            var newItem = document.createElement('li');
-            newItem.innerHTML = '<input type="checkbox" class="taskCheckbox">' + task;
-            document.getElementById('bucketList').appendChild(newItem);
-
-            setTimeout(function() {
-                newItem.style.display = 'none';
-            }, 15000); // Hide the new task after 15 seconds
+            tasks.push(task);
+            var newOption = new Option(task, tasks.length - 1);
+            document.getElementById('taskDropdown').appendChild(newOption);
         }
     });
 
-    // Event delegation for dynamically created checkboxes
-    document.getElementById('bucketList').addEventListener('click', function(event) {
-        if (event.target.classList.contains('taskCheckbox')) {
-            setTimeout(function() {
-                event.target.parentElement.style.display = 'none';
-            }, 15000); // Hide the task after 15 seconds when checkbox is clicked
+    document.getElementById('taskDropdown').addEventListener('change', function() {
+        var selectedTaskIndex = this.value;
+        if (selectedTaskIndex !== "") {
+            var taskName = tasks[selectedTaskIndex];
+            var taskImagePreview = document.getElementById('taskImagePreview');
+            taskImagePreview.innerHTML = "<strong>" + taskName + "</strong>";
         }
+    });
+
+    document.getElementById('taskImageInput').addEventListener('change', function() {
+        var file = this.files[0];
+        var taskImagePreview = document.getElementById('taskImagePreview');
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            taskImagePreview.innerHTML += '<img src="' + e.target.result + '" alt="Task Image" style="max-width: 200px;">';
+        }
+        reader.readAsDataURL(file);
     });
 </script>
 
