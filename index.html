@@ -21,6 +21,12 @@
         line-height: 100px;
         cursor: pointer;
     }
+    .cell.X {
+        color: blue;
+    }
+    .cell.O {
+        color: red;
+    }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
             if (board[index] === '') {
                 board[index] = currentPlayer;
                 document.getElementById('board').children[index].innerText = currentPlayer;
+                document.getElementById('board').children[index].classList.add(currentPlayer);
                 if (checkWin()) {
                     document.getElementById('message').innerText = `${currentPlayer} wins!`;
                     disableBoard();
@@ -63,6 +70,9 @@
                 } else {
                     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
                     document.getElementById('message').innerText = `Player ${currentPlayer}'s turn`;
+                    if (currentPlayer === 'O') {
+                        setTimeout(makeAiMove, 500);
+                    }
                 }
             }
         }
@@ -79,6 +89,17 @@
             document.querySelectorAll('.cell').forEach(cell => {
                 cell.onclick = null;
             });
+        }
+
+        function makeAiMove() {
+            let availableMoves = [];
+            for (let i = 0; i < board.length; i++) {
+                if (board[i] === '') {
+                    availableMoves.push(i);
+                }
+            }
+            let randomIndex = Math.floor(Math.random() * availableMoves.length);
+            makeMove(availableMoves[randomIndex]);
         }
     </script>
 </body>
