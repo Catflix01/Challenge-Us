@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dare Generator</title>
+    <title>Challenge Generator</title>
     <style>
         /* CSS Styles */
         body {
@@ -57,7 +57,7 @@
             background-color: #0056b3;
         }
 
-        .dare-container {
+        .challenge-container {
             max-height: 300px;
             overflow-y: auto;
             width: 80%;
@@ -68,7 +68,7 @@
             background-color: #fff;
         }
 
-        .dare-item {
+        .challenge-item {
             margin-bottom: 10px;
             padding: 15px;
             border-radius: 6px;
@@ -77,12 +77,12 @@
             position: relative;
         }
 
-        .dare-item p {
+        .challenge-item p {
             margin: 0;
             font-size: 1.1em;
         }
 
-        .dare-item .points {
+        .challenge-item .points {
             font-weight: bold;
             font-size: 1.1em;
             color: #007bff;
@@ -113,12 +113,12 @@
         }
 
         /* Form Styles */
-        #custom-dare-form {
+        #custom-challenge-form {
             margin-top: 20px;
         }
 
-        #custom-dare-form input[type="text"],
-        #custom-dare-form input[type="number"] {
+        #custom-challenge-form input[type="text"],
+        #custom-challenge-form input[type="number"] {
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
@@ -127,12 +127,12 @@
             font-size: 1em;
         }
 
-        /* User Dares Section */
-        #user-dares {
+        /* User challenges Section */
+        #user-challenges {
             margin-top: 50px;
         }
 
-        #user-dares .dare-container {
+        #user-challenges .challenge-container {
             background-color: #f7f7f7;
             border-color: #bbb;
         }
@@ -174,15 +174,15 @@
 </head>
 <body>
     <header>
-        <h1>Dare Generator</h1>
+        <h1>challenge Generator</h1>
     </header>
     <main>
         <div id="settings-dropdown">
             <button>Settings</button>
             <div class="dropdown-content">
-                <label><input type="checkbox" id="enable-categories" checked> Enable Dare Categories</label>
-                <label><input type="checkbox" id="enable-custom-dares" checked> Enable Custom Dares</label>
-                <label><input type="checkbox" id="enable-user-dares" checked> Enable User Dares</label>
+                <label><input type="checkbox" id="enable-categories" checked> Enable challenge Categories</label>
+                <label><input type="checkbox" id="enable-custom-challenges" checked> Enable Custom challenges</label>
+                <label><input type="checkbox" id="enable-user-challenges" checked> Enable User challenges</label>
             </div>
         </div>
         <div id="categories">
@@ -192,20 +192,20 @@
             <label><input type="checkbox" name="category" value="funny"> Funny</label>
             <!-- Add more categories as needed -->
         </div>
-        <button id="generate-btn">Generate Dare</button>
-        <div class="dare-container" id="dare-container">
-            <!-- Dares will be displayed here -->
+        <button id="generate-btn">Generate challenge</button>
+        <div class="challenge-container" id="challenge-container">
+            <!-- challenges will be displayed here -->
         </div>
         <div id="points-container">
             <span id="total-points">Total Points: 0</span>
         </div>
 
-        <!-- Custom Dare Form -->
-        <form id="custom-dare-form">
-            <h2>Add Your Own Dare</h2>
-            <input type="text" id="custom-dare" placeholder="Enter your dare">
-            <input type="number" id="custom-points" placeholder="Enter points for the dare">
-            <button type="button" id="add-dare-btn">Add Dare</button>
+        <!-- Custom challenge Form -->
+        <form id="custom-challenge-form">
+            <h2>Add Your Own challenge</h2>
+            <input type="text" id="custom-challenge" placeholder="Enter your challenge">
+            <input type="number" id="custom-points" placeholder="Enter points for the challenge">
+            <button type="button" id="add-challenge-btn">Add challenge</button>
         </form>
     </main>
     <footer>
@@ -218,80 +218,80 @@
         <div class="badge-container" id="badge-container"></div>
     </section>
 
-    <!-- User Dares Section -->
-    <section id="user-dares">
-        <h2>User Dares</h2>
-        <div class="dare-container" id="user-dare-container">
-            <!-- User-added dares will be displayed here -->
+    <!-- User challenges Section -->
+    <section id="user-challenges">
+        <h2>User challenges</h2>
+        <div class="challenge-container" id="user-challenge-container">
+            <!-- User-added challenges will be displayed here -->
         </div>
     </section>
 
     <script>
-        // JavaScript code for generating dares
+        // JavaScript code for generating challenges
         var totalPoints = 0;
-        var completedDares = [];
-        var userDares = []; // Array to store user-added dares
+        var completedchallenges = [];
+        var userchallenges = []; // Array to store user-added challenges
 
-        var dareCategories = {
+        var challengeCategories = {
             "physical": [
-                { dare: "Do 10 push-ups.", points: 10 },
-                { dare: "Run around the block.", points: 20 },
-                { dare: "Try a handstand.", points: 30 },
-                { dare: "Run in place for one minute.", points: 15 },
-                { dare: "Do a yoga pose for 30 seconds.", points: 15 },
-                { dare: "Crab walk across the room.", points: 30 },
-                { dare: "Spin around 10 times and walk in a straight line.", points: 20 },
-                { dare: "Hula hoop for one minute without stopping.", points: 30 },
-                { dare: "Do a wall sit for 10 seconds.", points: 10 },
-                { dare: "Do the limbo.", points: 30 },
-                { dare: "Hop on one foot for 30 seconds.", points: 15 },
-                { dare: "Freeze dance for 1 minute.", points: 20 }
+                { challenge: "Do 10 push-ups.", points: 10 },
+                { challenge: "Run around the block.", points: 20 },
+                { challenge: "Try a handstand.", points: 30 },
+                { challenge: "Run in place for one minute.", points: 15 },
+                { challenge: "Do a yoga pose for 30 seconds.", points: 15 },
+                { challenge: "Crab walk across the room.", points: 30 },
+                { challenge: "Spin around 10 times and walk in a straight line.", points: 20 },
+                { challenge: "Hula hoop for one minute without stopping.", points: 30 },
+                { challenge: "Do a wall sit for 10 seconds.", points: 10 },
+                { challenge: "Do the limbo.", points: 30 },
+                { challenge: "Hop on one foot for 30 seconds.", points: 15 },
+                { challenge: "Freeze dance for 1 minute.", points: 20 }
             ],
             "social": [
-                { dare: "Start a conversation with a stranger.", points: 15 },
-                { dare: "Compliment someone you don't know.", points: 20 },
-                { dare: "Ask for a high-five from a passerby.", points: 25 }
+                { challenge: "Start a conversation with a stranger.", points: 15 },
+                { challenge: "Compliment someone you don't know.", points: 20 },
+                { challenge: "Ask for a high-five from a passerby.", points: 25 }
             ],
             "creative": [
-                { dare: "Draw a self-portrait blindfolded.", points: 20 },
-                { dare: "Write a short poem about the weather.", points: 25 },
-                { dare: "Create a dance to a random song.", points: 30 }
+                { challenge: "Draw a self-portrait blindfolded.", points: 20 },
+                { challenge: "Write a short poem about the weather.", points: 25 },
+                { challenge: "Create a dance to a random song.", points: 30 }
             ],
             "funny": [
-                { dare: "Tell a funny joke to the group.", points: 10 },
-                { dare: "Do a silly dance for 30 seconds.", points: 15 },
-                { dare: "Make an animal noise and have others guess it.", points: 20 },
+                { challenge: "Tell a funny joke to the group.", points: 10 },
+                { challenge: "Do a silly dance for 30 seconds.", points: 15 },
+                { challenge: "Make an animal noise and have others guess it.", points: 20 },
             ],
-            // Add more dare categories and dares as needed
+            // Add more challenge categories and challenges as needed
         };
 
-        function generateDare() {
+        function generatechallenge() {
             var selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(checkbox => checkbox.value);
             if (selectedCategories.length !== 1) {
                 alert("Please only select one category.");
                 return;
             }
             var category = selectedCategories[0];
-            var dareList = dareCategories[category];
-            if (!dareList || dareList.length === 0) {
+            var challengeList = challengeCategories[category];
+            if (!challengeList || challengeList.length === 0) {
                 return null;
             }
-            var randomIndex = Math.floor(Math.random() * dareList.length);
-            return dareList.splice(randomIndex, 1)[0];
+            var randomIndex = Math.floor(Math.random() * challengeList.length);
+            return challengeList.splice(randomIndex, 1)[0];
         }
 
-        function displayDare(dare, containerId) {
-            var dareContainer = document.getElementById(containerId);
-            var dareItem = document.createElement('div');
-            dareItem.classList.add('dare-item');
-            dareItem.innerHTML = "<p>" + dare.dare + "</p><span class='points'>" + dare.points + " points</span><label><input type='checkbox' class='completed-checkbox'> Completed</label>";
-            dareContainer.appendChild(dareItem);
+        function displaychallenge(challenge, containerId) {
+            var challengeContainer = document.getElementById(containerId);
+            var challengeItem = document.createElement('div');
+            challengeItem.classList.add('challenge-item');
+            challengeItem.innerHTML = "<p>" + challenge.challenge + "</p><span class='points'>" + challenge.points + " points</span><label><input type='checkbox' class='completed-checkbox'> Completed</label>";
+            challengeContainer.appendChild(challengeItem);
         }
 
         function updatePoints() {
             var points = 0;
-            completedDares.forEach(function (dare) {
-                points += dare.points;
+            completedchallenges.forEach(function (challenge) {
+                points += challenge.points;
             });
             totalPoints = points;
             document.getElementById('total-points').textContent = "Total Points: " + totalPoints;
@@ -329,71 +329,71 @@
             document.getElementById(elementId).style.display = enabled ? 'block' : 'none';
         }
 
-        // Toggle Dare Categories
+        // Toggle challenge Categories
         document.getElementById('enable-categories').addEventListener('change', function() {
             toggleElement('categories', this.checked);
         });
 
-        // Toggle Custom Dare Form
-        document.getElementById('enable-custom-dares').addEventListener('change', function() {
-            toggleElement('custom-dare-form', this.checked);
+        // Toggle Custom challenge Form
+        document.getElementById('enable-custom-challenges').addEventListener('change', function() {
+            toggleElement('custom-challenge-form', this.checked);
         });
 
-        // Toggle User Dares Section
-        document.getElementById('enable-user-dares').addEventListener('change', function() {
-            toggleElement('user-dares', this.checked);
+        // Toggle User challenges Section
+        document.getElementById('enable-user-challenges').addEventListener('change', function() {
+            toggleElement('user-challenges', this.checked);
         });
 
         document.getElementById('generate-btn').addEventListener('click', function() {
-            var dareContainer = document.getElementById('dare-container');
-            dareContainer.innerHTML = '';
-            var dare = generateDare();
-            if (dare) {
-                displayDare(dare, 'dare-container');
+            var challengeContainer = document.getElementById('challenge-container');
+            challengeContainer.innerHTML = '';
+            var challenge = generatechallenge();
+            if (challenge) {
+                displaychallenge(challenge, 'challenge-container');
             } else {
-                dareContainer.textContent = 'Out of dares';
+                challengeContainer.textContent = 'Out of challenges';
             }
         });
 
-        document.getElementById('dare-container').addEventListener('change', function(event) {
+        document.getElementById('challenge-container').addEventListener('change', function(event) {
             if (event.target && event.target.matches('.completed-checkbox')) {
-                var dareItem = event.target.closest('.dare-item');
-                var dareIndex = parseInt(dareItem.dataset.index);
+                var challengeItem = event.target.closest('.challenge-item');
+                var challengeIndex = parseInt(challengeItem.dataset.index);
                 if (event.target.checked) {
-                    completedDares.push({
-                        points: parseInt(dareItem.querySelector('.points').textContent),
-                        index: dareIndex
+                    completedchallenges.push({
+                        points: parseInt(challengeItem.querySelector('.points').textContent),
+                        index: challengeIndex
                     });
                 } else {
-                    completedDares = completedDares.filter(function(dare) {
-                        return dare.index !== dareIndex;
+                    completedchallenges = completedchallenges.filter(function(challenge) {
+                        return challenge.index !== challengeIndex;
                     });
                 }
                 updatePoints();
-                dareItem.remove();
+                challengeItem.remove();
             }
         });
 
-        document.getElementById('add-dare-btn').addEventListener('click', function() {
-            var customDareInput = document.getElementById('custom-dare');
+        document.getElementById('add-challenge-btn').addEventListener('click', function() {
+            var customchallengeInput = document.getElementById('custom-challenge');
             var customPointsInput = document.getElementById('custom-points');
-            var customDare = customDareInput.value.trim();
+            var customchallenge = customchallengeInput.value.trim();
             var customPoints = parseInt(customPointsInput.value);
 
-            if (customDare && !isNaN(customPoints) && customPoints > 0) {
-                userDares.push({ dare: customDare, points: customPoints });
-                customDareInput.value = '';
+            if (customchallenge && !isNaN(customPoints) && customPoints > 0) {
+                userchallenges.push({ challenge: customchallenge, points: customPoints });
+                customchallengeInput.value = '';
                 customPointsInput.value = '';
-                alert('Custom dare added successfully!');
-                displayDare({ dare: customDare, points: customPoints }, 'user-dare-container');
+                alert('Custom challenge added successfully!');
+                displaychallenge({ challenge: customchallenge, points: customPoints }, 'user-challenge-container');
             } else {
-                alert('Please enter a valid dare and points.');
+                alert('Please enter a valid challenge and points.');
             }
         });
 
-        userDares.forEach(function(dare, index) {
-            displayDare(dare, 'user-dare-container');
-            document.querySelector('#user-dare-container .dare-item:last-child').dataset.index = index;
+        userchallenges.forEach(function(challenge, index) {
+            displaychallenge(challenge, 'user-challenge-container');
+            document.querySelector('#user-challenge-container .challenge-item:last-child').dataset.index = index;
         });
     </script>
 </body>
