@@ -52,7 +52,7 @@
     <a href="#">Home</a>
     <a href="#">Bucket List</a>
     <a href="#">Progress</a>
-    <a href="#">Settings</a>
+    <a href="#" id="settingsTab">Settings</a>
 </nav>
 
 <section>
@@ -66,6 +66,12 @@
     <input type="file" id="taskImageInput" style="display: none;">
     <label for="taskImageInput">Upload Image</label>
     <div id="taskImagePreview"></div>
+</section>
+
+<section id="settingsSection" style="display: none;">
+    <h2>Settings</h2>
+    <label for="taskDurationInput">Task Duration (in seconds):</label>
+    <input type="number" id="taskDurationInput" min="1" value="15">
 </section>
 
 <footer>
@@ -102,6 +108,24 @@
         }
         reader.readAsDataURL(file);
     });
+
+    // Settings Tab functionality
+    document.getElementById('settingsTab').addEventListener('click', function() {
+        document.getElementById('settingsSection').style.display = 'block';
+    });
+
+    // Event listener to update task duration
+    document.getElementById('taskDurationInput').addEventListener('change', function() {
+        var newDuration = parseInt(this.value);
+        updateTaskDuration(newDuration);
+    });
+
+    function updateTaskDuration(newDuration) {
+        var taskCheckboxes = document.querySelectorAll('.taskCheckbox');
+        taskCheckboxes.forEach(function(checkbox) {
+            checkbox.dataset.duration = newDuration;
+        });
+    }
 </script>
 
 </body>
