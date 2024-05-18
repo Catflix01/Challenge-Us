@@ -311,7 +311,7 @@
                 { points: 50, ascii: 'ʕ•ᴥ•ʔ' },
                 { points: 30, ascii: 'ಠ‿↼' },
                 { points: 20, ascii: 'ʘ‿ʘ' },
-                { points: 10, ascii: 'file:///Users/ayaan/Downloads/148128293-mountain-adventure-badge-label-emblem-or-logo-design-vector-template-outdoor-activities-icon-hiking-removebg-preview.png' }
+                { points: 10, ascii: '✌(-‿-)✌' }
                 // Add more badges as needed
             ];
 
@@ -390,6 +390,19 @@
                 alert('Please enter a valid challenge and points.');
             }
         });
+        var totalPoints = 0;
+        var rewardEarned = false;
+
+        function updatePoints(points) {
+            totalPoints += points;
+            document.getElementById('total-points').textContent = "Total Points: " + totalPoints;
+            
+            if (totalPoints >= 425 && !rewardEarned) {
+                document.getElementById('reward-message').style.display = 'block';
+                rewardEarned = true;
+            }
+        }
+
 
         userchallenges.forEach(function(challenge, index) {
             displaychallenge(challenge, 'user-challenge-container');
