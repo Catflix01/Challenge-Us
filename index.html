@@ -267,148 +267,153 @@
             ],
             // Add more challenge categories and challenges as needed
         };
-        function generatechallenge() {
-            var selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(checkbox => checkbox.value);
-            if (selectedCategories.length !== 1) {
-                alert("Please only select one category.");
-                return;
+        function generateChallenge() {
+        var selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(checkbox => checkbox.value);
+        if (selectedCategories.length !== 1) {
+            alert("Please only select one category.");
+            return;
+        }
+        var category = selectedCategories[0];
+        var challengeList = challengeCategories[category];
+        if (!challengeList || challengeList.length === 0) {
+            return null;
+        }
+        var randomIndex = Math.floor(Math.random() * challengeList.length);
+        return challengeList.splice(randomIndex, 1)[0];
+    }
+
+    function displayChallenge(challenge, containerId) {
+        var challengeContainer = document.getElementById(containerId);
+        var challengeItem = document.createElement('div');
+        challengeItem.classList.add('challenge-item');
+        challengeItem.innerHTML = "<p>" + challenge.challenge + "</p><span class='points'>" + challenge.points + " points</span><label><input type='checkbox' class='completed-checkbox'> Completed</label>";
+        challengeContainer.appendChild(challengeItem);
+    }
+
+    function updatePoints() {
+        var points = 0;
+        completedChallenges.forEach(function (challenge) {
+            points += challenge.points;
+        });
+        totalPoints = points;
+        document.getElementById('total-points').textContent = "Total Points: " + totalPoints;
+        updateBadges(totalPoints);
+    }
+
+    function updateBadges(totalPoints) {
+        const badgeContainer = document.getElementById('badge-container');
+        badgeContainer.innerHTML = '';
+
+        const badges = [
+            { points: 500, ascii: '¯\\_(ツ)_/¯' },
+            { points: 400, ascii: '(¬‿¬)' },
+            { points: 300, ascii: '(•‿•)' },
+            { points: 200, ascii: '(•◡•)' },
+            { points: 100, ascii: 'ಠ_ಠ' },
+            { points: 50, ascii: 'ʕ•ᴥ•ʔ' },
+            { points: 30, ascii: 'ಠ‿↼' },
+            { points: 20, ascii: 'ʘ‿ʘ' },
+            { points: 10, ascii: '✌(-‿-)✌' }
+            // Add more badges as needed
+        ];
+
+        badges.forEach(badge => {
+            if (totalPoints >= badge.points) {
+                const badgeElement = document.createElement('div');
+                badgeElement.classList.add('badge');
+                badgeElement.textContent = badge.ascii;
+                badgeContainer.appendChild(badgeElement);
             }
-            var category = selectedCategories[0];
-            var challengeList = challengeCategories[category];
-            if (!challengeList || challengeList.length === 0) {
-                return null;
-            }
-            var randomIndex = Math.floor(Math.random() * challengeList.length);
-            return challengeList.splice(randomIndex, 1)[0];
-        }
-
-        function displaychallenge(challenge, containerId) {
-            var challengeContainer = document.getElementById(containerId);
-            var challengeItem = document.createElement('div');
-            challengeItem.classList.add('challenge-item');
-            challengeItem.innerHTML = "<p>" + challenge.challenge + "</p><span class='points'>" + challenge.points + " points</span><label><input type='checkbox' class='completed-checkbox'> Completed</label>";
-            challengeContainer.appendChild(challengeItem);
-        }
-
-        function updatePoints() {
-            var points = 0;
-            completedchallenges.forEach(function (challenge) {
-                points += challenge.points;
-            });
-            totalPoints = points;
-            document.getElementById('total-points').textContent = "Total Points: " + totalPoints;
-            updateBadges(totalPoints);
-        }
-
-        function updateBadges(totalPoints) {
-            const badgeContainer = document.getElementById('badge-container');
-            badgeContainer.innerHTML = '';
-
-            const badges = [
-                { points: 500, ascii: '¯\\_(ツ)_/¯' },
-                { points: 400, ascii: '(¬‿¬)' },
-                { points: 300, ascii: '(•‿•)' },
-                { points: 200, ascii: '(•◡•)' },
-                { points: 100, ascii: 'ಠ_ಠ' },
-                { points: 50, ascii: 'ʕ•ᴥ•ʔ' },
-                { points: 30, ascii: 'ಠ‿↼' },
-                { points: 20, ascii: 'ʘ‿ʘ' },
-                { points: 10, ascii: '✌(-‿-)✌' }
-                // Add more badges as needed
-            ];
-
-            badges.forEach(badge => {
-                if (totalPoints >= badge.points) {
-                    const badgeElement = document.createElement('div');
-                    badgeElement.classList.add('badge');
-                    badgeElement.textContent = badge.ascii;
-                    badgeContainer.appendChild(badgeElement);
-                }
-            });
-        }
-
-        function toggleElement(elementId, enabled) {
-            document.getElementById(elementId).style.display = enabled ? 'block' : 'none';
-        }
-
-        // Toggle challenge Categories
-        document.getElementById('enable-categories').addEventListener('change', function() {
-            toggleElement('categories', this.checked);
         });
+    }
 
-        // Toggle Custom challenge Form
-        document.getElementById('enable-custom-challenges').addEventListener('change', function() {
-            toggleElement('custom-challenge-form', this.checked);
-        });
+    function toggleElement(elementId, enabled) {
+        document.getElementById(elementId).style.display = enabled ? 'block' : 'none';
+    }
 
-        // Toggle User challenges Section
-        document.getElementById('enable-user-challenges').addEventListener('change', function() {
-            toggleElement('user-challenges', this.checked);
-        });
+    // Toggle challenge Categories
+    document.getElementById('enable-categories').addEventListener('change', function() {
+        toggleElement('categories', this.checked);
+    });
 
-        document.getElementById('generate-btn').addEventListener('click', function() {
-            var challengeContainer = document.getElementById('challenge-container');
-            challengeContainer.innerHTML = '';
-            var challenge = generatechallenge();
-            if (challenge) {
-                displaychallenge(challenge, 'challenge-container');
+    // Toggle Custom challenge Form
+    document.getElementById('enable-custom-challenges').addEventListener('change', function() {
+        toggleElement('custom-challenge-form', this.checked);
+    });
+
+    // Toggle User challenges Section
+    document.getElementById('enable-user-challenges').addEventListener('change', function() {
+        toggleElement('user-challenges', this.checked);
+    });
+
+    document.getElementById('generate-btn').addEventListener('click', function() {
+        var challengeContainer = document.getElementById('challenge-container');
+        challengeContainer.innerHTML = '';
+        var challenge = generateChallenge();
+        if (challenge) {
+            displayChallenge(challenge, 'challenge-container');
+        } else {
+            challengeContainer.textContent = 'Out of challenges';
+        }
+    });
+
+    document.getElementById('challenge-container').addEventListener('change', function(event) {
+        if (event.target && event.target.matches('.completed-checkbox')) {
+            var challengeItem = event.target.closest('.challenge-item');
+            var challengeIndex = Array.from(document.querySelectorAll('#challenge-container .challenge-item')).indexOf(challengeItem);
+            if (event.target.checked) {
+                completedChallenges.push({
+                    points: parseInt(challengeItem.querySelector('.points').textContent),
+                    index: challengeIndex
+                });
             } else {
-                challengeContainer.textContent = 'Out of challenges';
+                completedChallenges = completedChallenges.filter(function(challenge) {
+                    return challenge.index !== challengeIndex;
+                });
             }
-        });
-
-        document.getElementById('challenge-container').addEventListener('change', function(event) {
-            if (event.target && event.target.matches('.completed-checkbox')) {
-                var challengeItem = event.target.closest('.challenge-item');
-                var challengeIndex = parseInt(challengeItem.dataset.index);
-                if (event.target.checked) {
-                    completedchallenges.push({
-                        points: parseInt(challengeItem.querySelector('.points').textContent),
-                        index: challengeIndex
-                    });
-                } else {
-                    completedchallenges = completedchallenges.filter(function(challenge) {
-                        return challenge.index !== challengeIndex;
-                    });
-                }
-                updatePoints();
-                challengeItem.remove();
-            }
-        });
-
-        document.getElementById('add-challenge-btn').addEventListener('click', function() {
-            var customchallengeInput = document.getElementById('custom-challenge');
-            var customPointsInput = document.getElementById('custom-points');
-            var customchallenge = customchallengeInput.value.trim();
-            var customPoints = parseInt(customPointsInput.value);
-
-            if (customchallenge && !isNaN(customPoints) && customPoints > 0) {
-                userchallenges.push({ challenge: customchallenge, points: customPoints });
-                customchallengeInput.value = '';
-                customPointsInput.value = '';
-                alert('Custom challenge added successfully!');
-                displaychallenge({ challenge: customchallenge, points: customPoints }, 'user-challenge-container');
-            } else {
-                alert('Please enter a valid challenge and points.');
-            }
-        });
-        var rewardEarned = false;
-        
-            totalPoints += points;
-            document.getElementById('total-points').textContent = "Total Points: " + totalPoints;
-    
-            
-            if (totalPoints >= 425 && !rewardEarned) {
-                document.getElementById('reward-message').style.display = 'block';
-                rewardEarned = true;
-            }
+            updatePoints();
+            challengeItem.remove();
         }
+    });
 
+    document.getElementById('add-challenge-btn').addEventListener('click', function() {
+        var customChallengeInput = document.getElementById('custom-challenge');
+        var customPointsInput = document.getElementById('custom-points');
+        var customChallenge = customChallengeInput.value.trim();
+        var customPoints = parseInt(customPointsInput.value);
 
-        userchallenges.forEach(function(challenge, index) {
-            displaychallenge(challenge, 'user-challenge-container');
-            document.querySelector('#user-challenge-container .challenge-item:last-child').dataset.index = index;
+        if (customChallenge && !isNaN(customPoints) && customPoints > 0) {
+            userChallenges.push({ challenge: customChallenge, points: customPoints });
+            customChallengeInput.value = '';
+            customPointsInput.value = '';
+            alert('Custom challenge added successfully!');
+            displayChallenge({ challenge: customChallenge, points: customPoints }, 'user-challenge-container');
+        } else {
+            alert('Please enter a valid challenge and points.');
+        }
+    });
+
+    var rewardEarned = false;
+
+    function updatePoints() {
+        var points = 0;
+        completedChallenges.forEach(function (challenge) {
+            points += challenge.points;
         });
-    </script>
+        totalPoints = points;
+        document.getElementById('total-points').textContent = "Total Points: " + totalPoints;
+        updateBadges(totalPoints);
+
+        if (totalPoints >= 425 && !rewardEarned) {
+            document.getElementById('reward-message').style.display = 'block';
+            rewardEarned = true;
+        }
+    }
+
+    userChallenges.forEach(function(challenge, index) {
+        displayChallenge(challenge, 'user-challenge-container');
+        document.querySelector('#user-challenge-container .challenge-item:last-child').dataset.index = index;
+    });
+</script>
 </body>
 </html>
