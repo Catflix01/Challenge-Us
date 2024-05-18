@@ -132,23 +132,4 @@
                 { dare: "Create a dance to a random song.", points: 30 }
             ],
             // Add more dare categories and dares as needed
-        };
-
-        document.getElementById('generate-btn').addEventListener('click', function() {
-            var dareContainer = document.getElementById('dare-container');
-            var pointsContainer = document.getElementById('points');
-            var categories = document.getElementsByName('category');
-            var selectedCategories = [];
-            for (var i = 0; i < categories.length; i++) {
-                if (categories[i].checked) {
-                    selectedCategories.push(categories[i].value);
-                }
-            }
-            if (selectedCategories.length === 1) {
-                var category = selectedCategories[0];
-                if (dareCategories[category].length > 0) {
-                    var randomIndex = Math.floor(Math.random() * dareCategories[category].length);
-                    var randomDare = dareCategories[category][randomIndex];
-                    var dareItem = document.createElement('div');
-                    dareItem.classList.add('dare-item');
-                    dareItem.innerHTML = "<p>" + randomDare.dare + "</p><label><input type='checkbox'> Completed</label> - Points:
+       
