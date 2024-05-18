@@ -7,12 +7,12 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #3498db; /* Blue theme */
             margin: 0;
             padding: 0;
         }
         header {
-            background-color: #e74c3c; /* Red theme */
+            background-color: #2980b9; /* Darker shade of blue */
             color: #fff;
             text-align: center;
             padding: 20px 0;
@@ -29,7 +29,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         button {
-            background-color: #e74c3c; /* Red theme */
+            background-color: #2980b9; /* Darker shade of blue */
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -37,7 +37,7 @@
             cursor: pointer;
         }
         button:hover {
-            background-color: #c0392b; /* Darker shade of red */
+            background-color: #1f618d; /* Even darker shade of blue */
         }
         #categories {
             margin-top: 20px;
@@ -106,8 +106,14 @@
                 var randomCategory = selectedCategories[Math.floor(Math.random() * selectedCategories.length)];
                 var randomDare = dareCategories[randomCategory][Math.floor(Math.random() * dareCategories[randomCategory].length)];
                 dareContainer.innerHTML = "<div class='dare-item'><p>" + randomDare.dare + "</p><label><input type='checkbox'> Completed</label></div>";
-                totalPoints += randomDare.points;
-                pointsContainer.textContent = totalPoints;
+                document.querySelector('.dare-item input[type="checkbox"]').addEventListener('change', function() {
+                    if (this.checked) {
+                        totalPoints += randomDare.points;
+                    } else {
+                        totalPoints -= randomDare.points;
+                    }
+                    pointsContainer.textContent = totalPoints;
+                });
             } else {
                 dareContainer.innerHTML = "<p>Please select at least one category.</p>";
             }
