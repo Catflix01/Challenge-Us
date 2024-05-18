@@ -1,26 +1,22 @@
-// JavaScript code for generating dares
 var totalPoints = 0;
 var completedDares = [];
 
-// Load custom dares from local storage
-var customDares = JSON.parse(localStorage.getItem('customDares')) || [];
-
 var dareCategories = {
     "physical": [
-        { dare: "Do 10 push-ups.", points: 10 },
-        { dare: "Run around the block.", points: 20 },
-        { dare: "Try a handstand.", points: 30 },
-        { dare: "Jump rope for 5 minutes.", points: 40 },
+        { dare: "Do 10 push-ups.", points: 10, image: "physical_pushups.png" },
+        { dare: "Run around the block.", points: 20, image: "physical_running.png" },
+        { dare: "Try a handstand.", points: 30, image: "physical_handstand.png" },
+        { dare: "Run", points: 30, image: "physical_running.png" },
     ],
     "social": [
-        { dare: "Start a conversation with a stranger.", points: 15 },
-        { dare: "Compliment someone you don't know.", points: 20 },
-        { dare: "Ask for a high-five from a passerby.", points: 25 }
+        { dare: "Start a conversation with a stranger.", points: 15, image: "social_conversation.png" },
+        { dare: "Compliment someone you don't know.", points: 20, image: "social_compliment.png" },
+        { dare: "Ask for a high-five from a passerby.", points: 25, image: "social_highfive.png" }
     ],
     "creative": [
-        { dare: "Draw a self-portrait blindfolded.", points: 20 },
-        { dare: "Write a short poem about the weather.", points: 25 },
-        { dare: "Create a dance to a random song.", points: 30 }
+        { dare: "Draw a self-portrait blindfolded.", points: 20, image: "creative_blindfolded.png" },
+        { dare: "Write a short poem about the weather.", points: 25, image: "creative_poem.png" },
+        { dare: "Create a dance to a random song.", points: 30, image: "creative_dance.png" }
     ],
     // Add more dare categories and dares as needed
 };
@@ -44,7 +40,7 @@ function displayDare(dare) {
     var dareContainer = document.getElementById('dare-container');
     var dareItem = document.createElement('div');
     dareItem.classList.add('dare-item');
-    dareItem.innerHTML = "<p>" + dare.dare + "</p><span class='points'>" + dare.points + " points</span><label><input type='checkbox' class='completed-checkbox'> Completed</label>";
+    dareItem.innerHTML = "<img src='images/" + dare.image + "' alt='" + dare.dare + "'><p>" + dare.dare + "</p><span class='points'>" + dare.points + " points</span><label><input type='checkbox' class='completed-checkbox'> Completed</label>";
     dareContainer.appendChild(dareItem);
 }
 
