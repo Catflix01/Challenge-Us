@@ -48,6 +48,9 @@
         .dare-item {
             margin-bottom: 10px;
         }
+        .friend-item {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
@@ -126,4 +129,27 @@
                         }
                         pointsContainer.textContent = totalPoints;
                     });
-                    // Remove the
+                    // Remove the displayed dare from the available dares
+                    dareCategories[category].splice(randomIndex, 1);
+                } else {
+                    dareContainer.innerHTML = "<p>Out of dares for this category.</p>";
+                }
+            } else {
+                dareContainer.innerHTML = "<p>Please select only one category.</p>";
+            }
+        });
+
+        // Display friends and their completed dares
+        var friendsList = document.getElementById('friends-list');
+        friends.forEach(function(friend) {
+            var friendItem = document.createElement('li');
+            friendItem.classList.add('friend-item');
+            friendItem.innerHTML = "<strong>" + friend.name + "</strong> - Points: " + friend.points + "<ul></ul>";
+            friend.completedDares.forEach(function(dare) {
+                friendItem.querySelector('ul').innerHTML += "<li>" + dare + "</li>";
+            });
+            friendsList.appendChild(friendItem);
+        });
+    </script>
+</body>
+</html>
