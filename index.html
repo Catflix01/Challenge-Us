@@ -267,7 +267,6 @@
             ],
             // Add more challenge categories and challenges as needed
         };
-
         function generatechallenge() {
             var selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(checkbox => checkbox.value);
             if (selectedCategories.length !== 1) {
