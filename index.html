@@ -32,7 +32,7 @@
 
         /* Main Content Styles */
         main {
-            min-height: calc(100% - 120px); /* Subtract header and footer heights */
+            min-height: calc(100% - 160px); /* Subtract header, footer, and points container heights */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -105,6 +105,11 @@
             width: 100%;
         }
 
+        #total-points {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
         /* Footer Styles */
         footer {
             background-color: #007bff; /* Blue */
@@ -132,10 +137,10 @@
         <div class="dare-container" id="dare-container">
             <!-- Dares will be displayed here -->
         </div>
+        <div id="points-container">
+            <span id="total-points">Total Points: 0</span>
+        </div>
     </main>
-    <div id="points-container">
-        Points: <span id="points">0</span>
-    </div>
     <footer>
         <p>Made with ❤️ by Your Name</p>
     </footer>
@@ -185,9 +190,15 @@
             dareContainer.appendChild(dareItem);
         }
 
-        function updatePoints(points) {
-            totalPoints += points;
-            document.getElementById('points').textContent = totalPoints;
+        function updatePoints() {
+            var completedDares = document.querySelectorAll('.completed-checkbox:checked');
+            var points = 0;
+            completedDares.forEach(function (checkbox) {
+                var dareItem = checkbox.closest('.dare-item');
+                points += parseInt(dareItem.querySelector('.points').textContent);
+            });
+            totalPoints = points;
+            document.getElementById('total-points').textContent = "Total Points: " + totalPoints;
         }
 
         document.getElementById('generate-btn').addEventListener('click', function() {
@@ -201,12 +212,9 @@
             }
         });
 
-        document.getElementById('dare-container').addEventListener('click', function(event) {
+        document.getElementById('dare-container').addEventListener('change', function(event) {
             if (event.target && event.target.matches('.completed-checkbox')) {
-                var dareItem = event.target.closest('.dare-item');
-                var points = parseInt(dareItem.textContent.match(/(\d+) points/)[1]);
-                updatePoints(points);
-                dareItem.remove();
+                updatePoints();
             }
         });
     </script>
