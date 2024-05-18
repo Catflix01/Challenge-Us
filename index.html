@@ -71,6 +71,7 @@
     </main>
     <script>
         var totalPoints = 0;
+        var availableDares = {};
 
         // Define dare categories and respective dares with point values
         var dareCategories = {
@@ -92,6 +93,11 @@
             // Add more dare categories and dares as needed
         };
 
+        // Populate availableDares with all dares initially
+        for (var category in dareCategories) {
+            availableDares[category] = dareCategories[category].slice(); // Make a copy of the array to avoid modifying the original
+        }
+
         document.getElementById('generate-btn').addEventListener('click', function() {
             var dareContainer = document.getElementById('dare-container');
             var pointsContainer = document.getElementById('points');
@@ -102,20 +108,27 @@
                     selectedCategories.push(categories[i].value);
                 }
             }
-            if (selectedCategories.length > 0) {
-                var randomCategory = selectedCategories[Math.floor(Math.random() * selectedCategories.length)];
-                var randomDare = dareCategories[randomCategory][Math.floor(Math.random() * dareCategories[randomCategory].length)];
-                dareContainer.innerHTML = "<div class='dare-item'><p>" + randomDare.dare + "</p><label><input type='checkbox'> Completed</label> - Points: " + randomDare.points + "</div>";
-                document.querySelector('.dare-item input[type="checkbox"]').addEventListener('change', function() {
-                    if (this.checked) {
-                        totalPoints += randomDare.points;
-                    } else {
-                        totalPoints -= randomDare.points;
-                    }
-                    pointsContainer.textContent = totalPoints;
-                });
+            if (selectedCategories.length === 1) {
+                var category = selectedCategories[0];
+                if (availableDares[category].length > 0) {
+                    var randomIndex = Math.floor(Math.random() * availableDares[category].length);
+                    var randomDare = availableDares[category][randomIndex];
+                    dareContainer.innerHTML = "<div class='dare-item'><p>" + randomDare.dare + "</p><label><input type='checkbox'> Completed</label> - Points: " + randomDare.points + "</div>";
+                    document.querySelector('.dare-item input[type="checkbox"]').addEventListener('change', function() {
+                        if (this.checked) {
+                            totalPoints += randomDare.points;
+                        } else {
+                            totalPoints -= randomDare.points;
+                        }
+                        pointsContainer.textContent = totalPoints;
+                    });
+                    // Remove the displayed dare from available dares
+                    availableDares[category].splice(randomIndex, 1);
+                } else {
+                    dareContainer.innerHTML = "<p>Out of dares for this category.</p>";
+                }
             } else {
-                dareContainer.innerHTML = "<p>Please select at least one category.</p>";
+                dareContainer.innerHTML = "<p>Please select only one category.</p>";
             }
         });
     </script>
