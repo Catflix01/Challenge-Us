@@ -393,12 +393,16 @@
                 alert('Please enter a valid challenge and points.');
             }
         });
-        var totalPoints = 0;
         var rewardEarned = false;
 
         function updatePoints(points) {
             totalPoints += points;
             document.getElementById('total-points').textContent = "Total Points: " + totalPoints;
+
+            function updatePoints(points) {
+    totalPoints += points;
+    document.getElementById('total-points').textContent = "Total Points: " + totalPoints;
+    
             
             if (totalPoints >= 425 && !rewardEarned) {
                 document.getElementById('reward-message').style.display = 'block';
