@@ -58,18 +58,40 @@
 <section>
     <h2>Welcome to Bucket List Tracker!</h2>
     <p>Start adding your dreams and goals to your bucket list now.</p>
-    <button>Add New Item</button>
+    <button id="addTaskBtn">Add New Item</button>
     <h3>Your Bucket List</h3>
-    <ul>
-        <li>Travel to Japan</li>
-        <li>Learn to play the guitar</li>
-        <li>Write a novel</li>
+    <ul id="bucketList">
+        <!-- Bucket list items will be added here dynamically -->
     </ul>
 </section>
 
 <footer>
     <p>&copy; 2024 Bucket List Tracker. All rights reserved.</p>
 </footer>
+
+<script>
+    document.getElementById('addTaskBtn').addEventListener('click', function() {
+        var task = prompt('Enter your new task:');
+        if (task) {
+            var newItem = document.createElement('li');
+            newItem.innerHTML = '<input type="checkbox" class="taskCheckbox">' + task;
+            document.getElementById('bucketList').appendChild(newItem);
+
+            setTimeout(function() {
+                newItem.style.display = 'none';
+            }, 15000); // Hide the new task after 15 seconds
+        }
+    });
+
+    // Event delegation for dynamically created checkboxes
+    document.getElementById('bucketList').addEventListener('click', function(event) {
+        if (event.target.classList.contains('taskCheckbox')) {
+            setTimeout(function() {
+                event.target.parentElement.style.display = 'none';
+            }, 15000); // Hide the task after 15 seconds when checkbox is clicked
+        }
+    });
+</script>
 
 </body>
 </html>
