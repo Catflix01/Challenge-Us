@@ -7,12 +7,12 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #3498db; /* Blue theme */
+            background-color: #f0f0f0;
             margin: 0;
             padding: 0;
         }
         header {
-            background-color: #2980b9; /* Darker shade of blue */
+            background-color: #3498db;
             color: #fff;
             text-align: center;
             padding: 20px 0;
@@ -29,27 +29,55 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         button {
-            background-color: #2980b9; /* Darker shade of blue */
+            background-color: #2980b9;
             color: #fff;
             border: none;
             padding: 10px 20px;
             border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #1f618d; /* Even darker shade of blue */
+            background-color: #1f618d;
         }
         #categories {
             margin-top: 20px;
+            display: flex;
+            justify-content: center;
         }
         label {
             margin-right: 10px;
         }
+        .dare-container {
+            margin-top: 20px;
+        }
         .dare-item {
             margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ecf0f1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .dare-item p {
+            margin: 0;
+        }
+        .points-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #friends-container {
+            margin-top: 20px;
+            text-align: center;
         }
         .friend-item {
             margin-bottom: 5px;
+            padding: 5px;
+            border-radius: 4px;
+            background-color: #ecf0f1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .friend-item p {
+            margin: 0;
         }
     </style>
 </head>
@@ -58,24 +86,25 @@
         <h1>Dare Generator</h1>
     </header>
     <main>
-        <div id="dare-container">
-            <!-- Dares will be displayed here -->
-        </div>
-        <div id="points-container">
-            Points: <span id="points">0</span>
-        </div>
-        <button id="generate-btn">Generate Dare</button>
         <div id="categories">
             <label><input type="checkbox" name="category" value="physical">Physical</label>
             <label><input type="checkbox" name="category" value="social">Social</label>
             <label><input type="checkbox" name="category" value="creative">Creative</label>
             <!-- Add more categories as needed -->
         </div>
-        <hr>
-        <h2>Friends</h2>
-        <ul id="friends-list">
-            <!-- Friends will be listed here -->
-        </ul>
+        <button id="generate-btn">Generate Dare</button>
+        <div class="dare-container" id="dare-container">
+            <!-- Dares will be displayed here -->
+        </div>
+        <div class="points-container" id="points-container">
+            Points: <span id="points">0</span>
+        </div>
+        <div id="friends-container">
+            <h2>Friends</h2>
+            <ul id="friends-list">
+                <!-- Friends will be listed here -->
+            </ul>
+        </div>
     </main>
     <script>
         var totalPoints = 0;
@@ -120,36 +149,6 @@
                 if (dareCategories[category].length > 0) {
                     var randomIndex = Math.floor(Math.random() * dareCategories[category].length);
                     var randomDare = dareCategories[category][randomIndex];
-                    dareContainer.innerHTML = "<div class='dare-item'><p>" + randomDare.dare + "</p><label><input type='checkbox'> Completed</label> - Points: " + randomDare.points + "</div>";
-                    document.querySelector('.dare-item input[type="checkbox"]').addEventListener('change', function() {
-                        if (this.checked) {
-                            totalPoints += randomDare.points;
-                        } else {
-                            totalPoints -= randomDare.points;
-                        }
-                        pointsContainer.textContent = totalPoints;
-                    });
-                    // Remove the displayed dare from the available dares
-                    dareCategories[category].splice(randomIndex, 1);
-                } else {
-                    dareContainer.innerHTML = "<p>Out of dares for this category.</p>";
-                }
-            } else {
-                dareContainer.innerHTML = "<p>Please select only one category.</p>";
-            }
-        });
-
-        // Display friends and their completed dares
-        var friendsList = document.getElementById('friends-list');
-        friends.forEach(function(friend) {
-            var friendItem = document.createElement('li');
-            friendItem.classList.add('friend-item');
-            friendItem.innerHTML = "<strong>" + friend.name + "</strong> - Points: " + friend.points + "<ul></ul>";
-            friend.completedDares.forEach(function(dare) {
-                friendItem.querySelector('ul').innerHTML += "<li>" + dare + "</li>";
-            });
-            friendsList.appendChild(friendItem);
-        });
-    </script>
-</body>
-</html>
+                    var dareItem = document.createElement('div');
+                    dareItem.classList.add('dare-item');
+                    dareItem.innerHTML = "<p>" + randomDare.dare + "</p><label><input type='checkbox'> Completed</label> - Points:
