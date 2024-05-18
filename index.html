@@ -174,15 +174,15 @@
 </head>
 <body>
     <header>
-        <h1>challenge Generator</h1>
+        <h1>Challenge Generator</h1>
     </header>
     <main>
         <div id="settings-dropdown">
             <button>Settings</button>
             <div class="dropdown-content">
-                <label><input type="checkbox" id="enable-categories" checked> Enable challenge Categories</label>
-                <label><input type="checkbox" id="enable-custom-challenges" checked> Enable Custom challenges</label>
-                <label><input type="checkbox" id="enable-user-challenges" checked> Enable User challenges</label>
+                <label><input type="checkbox" id="enable-categories" checked> Enable Challenge Categories</label>
+                <label><input type="checkbox" id="enable-custom-challenges" checked> Enable Custom Challenges</label>
+                <label><input type="checkbox" id="enable-user-challenges" checked> Enable User Challenges</label>
             </div>
         </div>
         <div id="categories">
@@ -192,20 +192,20 @@
             <label><input type="checkbox" name="category" value="funny"> Funny</label>
             <!-- Add more categories as needed -->
         </div>
-        <button id="generate-btn">Generate challenge</button>
+        <button id="generate-btn">Generate Challenge</button>
         <div class="challenge-container" id="challenge-container">
-            <!-- challenges will be displayed here -->
+            <!-- Challenges will be displayed here -->
         </div>
         <div id="points-container">
             <span id="total-points">Total Points: 0</span>
         </div>
 
-        <!-- Custom challenge Form -->
+        <!-- Custom Challenge Form -->
         <form id="custom-challenge-form">
-            <h2>Add Your Own challenge</h2>
+            <h2>Add Your Own Challenge</h2>
             <input type="text" id="custom-challenge" placeholder="Enter your challenge">
             <input type="number" id="custom-points" placeholder="Enter points for the challenge">
-            <button type="button" id="add-challenge-btn">Add challenge</button>
+            <button type="button" id="add-challenge-btn">Add Challenge</button>
         </form>
     </main>
     <footer>
@@ -216,14 +216,14 @@
     <section id="awards">
         <h2>Awards</h2>
         <div class="badge-container" id="badge-container"></div>
-<div id="reward-message" style="display: none;">
-    Congratulations! You've earned a reward!
-</div>
+        <div id="reward-message" style="display: none;">
+            Congratulations! You've earned a reward!
+        </div>
     </section>
 
-    <!-- User challenges Section -->
+    <!-- User Challenges Section -->
     <section id="user-challenges">
-        <h2>User challenges</h2>
+        <h2>User Challenges</h2>
         <div class="challenge-container" id="user-challenge-container">
             <!-- User-added challenges will be displayed here -->
         </div>
@@ -232,8 +232,8 @@
     <script>
         // JavaScript code for generating challenges
         var totalPoints = 0;
-        var completedchallenges = [];
-        var userchallenges = []; // Array to store user-added challenges
+        var completedChallenges = [];
+        var userChallenges = []; // Array to store user-added challenges
 
         var challengeCategories = {
             "physical": [
