@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #f8f9fa; /* Light gray */
-            color: #333; /* Dark gray */
+            background-color: #f2f2f2; /* Light Grey */
+            color: #555; /* Grey */
             margin: 0;
             padding: 0;
             display: flex;
@@ -19,8 +19,8 @@
         }
 
         header {
-            background-color: #007bff; /* Apple Blue */
-            color: #fff;
+            background-color: #ddd; /* Grey */
+            color: #333; /* Dark Grey */
             text-align: center;
             padding: 20px 0;
             width: 100%;
@@ -54,7 +54,7 @@
         }
 
         button {
-            background-color: #0069d9; /* Dark blue */
+            background-color: #666; /* Grey */
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -66,7 +66,7 @@
         }
 
         button:hover {
-            background-color: #FFCCCB; /* Even darker blue */
+            background-color: #333; /* Dark Grey */
         }
 
         .dare-container {
@@ -83,9 +83,17 @@
             margin-bottom: 10px;
             padding: 10px;
             border-radius: 4px;
-            background-color: #f1f1f1; /* Light gray */
+            background-color: #fff; /* White */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .dare-item img {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
         }
 
         .dare-item p {
@@ -94,9 +102,6 @@
         }
 
         .dare-item .points {
-            position: absolute;
-            top: 10px;
-            right: 10px;
             font-weight: bold;
             font-size: 1.1em;
         }
@@ -104,16 +109,16 @@
         #points-container {
             text-align: center;
             padding: 10px 0;
-            background-color: #007bff; /* Blue */
-            color: #fff;
+            background-color: #ddd; /* Grey */
+            color: #333; /* Dark Grey */
             width: 100%;
             font-size: 1.2em;
             border-radius: 0 0 10px 10px;
         }
 
         footer {
-            background-color: #007bff; /* Blue */
-            color: #fff;
+            background-color: #ddd; /* Grey */
+            color: #333; /* Dark Grey */
             text-align: center;
             padding: 10px 0;
             width: 100%;
@@ -149,20 +154,20 @@
 
         var dareCategories = {
             "physical": [
-                { dare: "Do 10 push-ups.", points: 10, time: 30 },
-                { dare: "Run around the block.", points: 20, time: 60 },
-                { dare: "Try a handstand.", points: 30, time: 45 },
-                { dare: "Run", points: 30, time: 50 },
+                { dare: "Do 10 push-ups.", points: 10, image: "pushups.jpg" },
+                { dare: "Run around the block.", points: 20, image: "run.jpg" },
+                { dare: "Try a handstand.", points: 30, image: "handstand.jpg" },
+                { dare: "Jump rope for 5 minutes.", points: 40, image: "jumprope.jpg" },
             ],
             "social": [
-                { dare: "Start a conversation with a stranger.", points: 15, time: 40 },
-                { dare: "Compliment someone you don't know.", points: 20, time: 35 },
-                { dare: "Ask for a high-five from a passerby.", points: 25, time: 20 }
+                { dare: "Start a conversation with a stranger.", points: 15, image: "conversation.jpg" },
+                { dare: "Compliment someone you don't know.", points: 20, image: "compliment.jpg" },
+                { dare: "Ask for a high-five from a passerby.", points: 25, image: "highfive.jpg" }
             ],
             "creative": [
-                { dare: "Draw a self-portrait blindfolded.", points: 20, time: 60 },
-                { dare: "Write a short poem about the weather.", points: 25, time: 45 },
-                { dare: "Create a dance to a random song.", points: 30, time: 60 }
+                { dare: "Draw a self-portrait blindfolded.", points: 20, image: "blindfold.jpg" },
+                { dare: "Write a short poem about the weather.", points: 25, image: "poem.jpg" },
+                { dare: "Create a dance to a random song.", points: 30, image: "dance.jpg" }
             ],
             // Add more dare categories and dares as needed
         };
@@ -186,22 +191,8 @@
             var dareContainer = document.getElementById('dare-container');
             var dareItem = document.createElement('div');
             dareItem.classList.add('dare-item');
-            dareItem.innerHTML = "<p>" + dare.dare + "</p><span class='points'>" + dare.points + " points</span><label><input type='checkbox' class='completed-checkbox'> Completed</label><div class='timer'>Time left: <span class='time-left'>" + dare.time + "</span> seconds</div>";
+            dareItem.innerHTML = `<img src="${dare.image}" alt="${dare.dare}"><div><p>${dare.dare}</p><span class='points'>${dare.points} points</span></div><label><input type='checkbox' class='completed-checkbox'> Completed</label>`;
             dareContainer.appendChild(dareItem);
-            startTimer(dareItem, dare.time);
-        }
-
-        function startTimer(dareItem, time) {
-            var timerElement = dareItem.querySelector('.time-left');
-            var intervalId = setInterval(function() {
-                time--;
-                if (time < 0) {
-                    clearInterval(intervalId);
-                    timerElement.textContent = "Time's up!";
-                } else {
-                    timerElement.textContent = time;
-                }
-            }, 1000);
         }
 
         function updatePoints() {
