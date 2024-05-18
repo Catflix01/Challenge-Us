@@ -167,12 +167,10 @@
             var category = selectedCategories[Math.floor(Math.random() * selectedCategories.length)];
             var dareList = dareCategories[category];
             if (!dareList || dareList.length === 0) {
-                alert("No dares available in the selected category.");
-                return;
+                return null; // No dares available in the selected category
             }
             var randomIndex = Math.floor(Math.random() * dareList.length);
-            var randomDare = dareList[randomIndex];
-            return randomDare;
+            return dareList.splice(randomIndex, 1)[0]; // Remove and return a random dare from the list
         }
 
         // Function to display the generated dare
@@ -191,6 +189,8 @@
             var dare = generateDare();
             if (dare) {
                 displayDare(dare);
+            } else {
+                dareContainer.textContent = 'Out of dares';
             }
         });
     </script>
