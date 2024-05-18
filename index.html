@@ -1,13 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-	<h1> Ayaan Patel's site is hosted</h1>>
-  </body>
+    <title>Dare Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        h1 {
+            margin: 0;
+        }
+        main {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #categories {
+            margin-top: 20px;
+        }
+        label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dare Generator</h1>
+    </header>
+    <main>
+        <div id="dare-container">
+            <!-- Dares will be displayed here -->
+        </div>
+        <button id="generate-btn">Generate Dare</button>
+        <div id="categories">
+            <label><input type="checkbox" name="category" value="physical">Physical</label>
+            <label><input type="checkbox" name="category" value="social">Social</label>
+            <label><input type="checkbox" name="category" value="creative">Creative</label>
+            <!-- Add more categories as needed -->
+        </div>
+    </main>
+    <script>
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            // Generate dare logic goes here
+            // You can add your dare generation logic using JavaScript
+            // For simplicity, let's just display a placeholder text for now
+            var dareContainer = document.getElementById('dare-container');
+            dareContainer.innerHTML = "<p>Do something daring!</p>";
+        });
+    </script>
+</body>
 </html>
