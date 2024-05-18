@@ -147,6 +147,7 @@
     <script>
         // JavaScript code for generating dares
         var totalPoints = 0;
+        var completedDares = [];
 
         var dareCategories = {
             "physical": [
@@ -191,11 +192,9 @@
         }
 
         function updatePoints() {
-            var completedDares = document.querySelectorAll('.completed-checkbox:checked');
             var points = 0;
-            completedDares.forEach(function (checkbox) {
-                var dareItem = checkbox.closest('.dare-item');
-                points += parseInt(dareItem.querySelector('.points').textContent);
+            completedDares.forEach(function (dare) {
+                points += dare.points;
             });
             totalPoints = points;
             document.getElementById('total-points').textContent = "Total Points: " + totalPoints;
@@ -214,6 +213,18 @@
 
         document.getElementById('dare-container').addEventListener('change', function(event) {
             if (event.target && event.target.matches('.completed-checkbox')) {
+                var dareItem = event.target.closest('.dare-item');
+                var dareIndex = parseInt(dareItem.dataset.index);
+                if (event.target.checked) {
+                    completedDares.push({
+                        points: parseInt(dareItem.querySelector('.points').textContent),
+                        index: dareIndex
+                    });
+                } else {
+                    completedDares = completedDares.filter(function(dare) {
+                        return dare.index !== dareIndex;
+                    });
+                }
                 updatePoints();
             }
         });
