@@ -264,12 +264,6 @@
             ]
             // Add more dare categories and dares as needed
         };
-
-        function generateDare() {
-            var selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(checkbox => checkbox.value);
-            if (selectedCategories.length !== 1) {
-                alert("Please only select one category.");
-                return;
             }
             var category = selectedCategories[0];
             var dareList = dareCategories[category];
