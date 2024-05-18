@@ -3,130 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bucket List Tracker</title>
+    <title>Dare Generator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f8ff; /* Light blue background */
+            background-color: #f0f0f0;
             margin: 0;
             padding: 0;
         }
         header {
-            background-color: #4682b4; /* Darker blue header */
+            background-color: #3498db;
             color: #fff;
-            padding: 10px 0;
             text-align: center;
+            padding: 20px 0;
         }
-        nav {
-            background-color: #87ceeb; /* Light blue navigation */
-            padding: 10px;
-            text-align: center;
+        h1 {
+            margin: 0;
         }
-        nav a {
-            color: #333;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-        section {
+        main {
+            max-width: 600px;
+            margin: 20px auto;
             padding: 20px;
-            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        footer {
-            background-color: #4682b4; /* Darker blue footer */
+        button {
+            background-color: #3498db;
             color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #categories {
+            margin-top: 20px;
+        }
+        label {
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
-
-<header>
-    <h1>Bucket List Tracker</h1>
-</header>
-
-<nav>
-    <a href="#">Home</a>
-    <a href="#">Bucket List</a>
-    <a href="#">Progress</a>
-    <a href="#" id="settingsTab">Settings</a>
-</nav>
-
-<section>
-    <h2>Welcome to Bucket List Tracker!</h2>
-    <p>Start adding your dreams and goals to your bucket list now.</p>
-    <button id="addTaskBtn">Add New Item</button>
-    <select id="taskDropdown">
-        <option value="">Select a task</option>
-        <!-- Dropdown options will be added here dynamically -->
-    </select>
-    <input type="file" id="taskImageInput" style="display: none;">
-    <label for="taskImageInput">Upload Image</label>
-    <div id="taskImagePreview"></div>
-</section>
-
-<section id="settingsSection" style="display: none;">
-    <h2>Settings</h2>
-    <label for="taskDurationInput">Task Duration (in seconds):</label>
-    <input type="number" id="taskDurationInput" min="1" value="15">
-</section>
-
-<footer>
-    <p>&copy; 2024 Bucket List Tracker. All rights reserved.</p>
-</footer>
-
-<script>
-    var tasks = []; // Array to store tasks
-
-    document.getElementById('addTaskBtn').addEventListener('click', function() {
-        var task = prompt('Enter your new task:');
-        if (task) {
-            tasks.push(task);
-            var newOption = new Option(task, tasks.length - 1);
-            document.getElementById('taskDropdown').appendChild(newOption);
-        }
-    });
-
-    document.getElementById('taskDropdown').addEventListener('change', function() {
-        var selectedTaskIndex = this.value;
-        if (selectedTaskIndex !== "") {
-            var taskName = tasks[selectedTaskIndex];
-            var taskImagePreview = document.getElementById('taskImagePreview');
-            taskImagePreview.innerHTML = "<strong>" + taskName + "</strong>";
-        }
-    });
-
-    document.getElementById('taskImageInput').addEventListener('change', function() {
-        var file = this.files[0];
-        var taskImagePreview = document.getElementById('taskImagePreview');
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            taskImagePreview.innerHTML += '<img src="' + e.target.result + '" alt="Task Image" style="max-width: 200px;">';
-        }
-        reader.readAsDataURL(file);
-    });
-
-    // Settings Tab functionality
-    document.getElementById('settingsTab').addEventListener('click', function() {
-        document.getElementById('settingsSection').style.display = 'block';
-    });
-
-    // Event listener to update task duration
-    document.getElementById('taskDurationInput').addEventListener('change', function() {
-        var newDuration = parseInt(this.value);
-        updateTaskDuration(newDuration);
-    });
-
-    function updateTaskDuration(newDuration) {
-        var taskCheckboxes = document.querySelectorAll('.taskCheckbox');
-        taskCheckboxes.forEach(function(checkbox) {
-            checkbox.dataset.duration = newDuration;
+    <header>
+        <h1>Dare Generator</h1>
+    </header>
+    <main>
+        <div id="dare-container">
+            <!-- Dares will be displayed here -->
+        </div>
+        <button id="generate-btn">Generate Dare</button>
+        <div id="categories">
+            <label><input type="checkbox" name="category" value="physical">Physical</label>
+            <label><input type="checkbox" name="category" value="social">Social</label>
+            <label><input type="checkbox" name="category" value="creative">Creative</label>
+            <!-- Add more categories as needed -->
+        </div>
+    </main>
+    <script>
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            // Generate dare logic goes here
+            // You can add your dare generation logic using JavaScript
+            // For simplicity, let's just display a placeholder text for now
+            var dareContainer = document.getElementById('dare-container');
+            dareContainer.innerHTML = "<p>Do something daring!</p>";
         });
-    }
-</script>
-
+    </script>
 </body>
 </html>
