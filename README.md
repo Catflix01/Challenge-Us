@@ -1,7 +1,11 @@
 This is challenge us. Made by teenagers, for Teenagers
+
 Made by Andrew Goff(14, pennsylvania) Ayaan Patel(14, New Jersey), Neil John(14, New Jersey), Rylan(14 pennsylvania)
+
 Published: May 19, 2024
+
 Last Updated: May 23, 2024
+
 People are to comfortable. So… we have have created a website that makes you go outside your comfort zone. We do this by having dares that are posted on the website and you are able to pick from 3 different categories and they are all user friendly and only the admin can add dares, that way we have safe/harmless thing going on.
 
 So the points are based on the difficulty of the challenge. One could be do 10 jumping jacks and another could be go make friends with a stranger and tell us something about them. Point system is changed by difficulty 
