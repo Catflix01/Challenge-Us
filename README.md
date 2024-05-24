@@ -1,6 +1,6 @@
 This is challenge us. Made by teenagers, for Teenagers
 
-Made by Andrew Goff(14, pennsylvania) Ayaan Patel(14, New Jersey), Neil John(14, New Jersey), Rylan(14 pennsylvania)
+Made by Andrew Goff(14, pennsylvania) Ayaan Patel(14, New Jersey), Neil John(14, New Jersey), Rylan Garber(14 pennsylvania)
 
 Published: May 19, 2024
 
