@@ -10,7 +10,7 @@ Website: Chalenges.us
 
 Published: May 19, 2024
 
-Last Updated: May 23, 2024
+Last Updated: May 27, 2024
 
 People are to comfortable. So… we have have created a website that makes you go outside your comfort zone. We do this by having dares that are posted on the website and you are able to pick from 3 different categories and they are all user friendly and only the admin can add dares, that way we have safe/harmless thing going on.
 
