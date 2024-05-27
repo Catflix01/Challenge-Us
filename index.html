@@ -223,6 +223,39 @@ button:hover {
     </section>
 
     <script>
+        function updatePoints() {
+            var points = 0;
+            completedChallenges.forEach(function (challenge) {
+                points += challenge.points;
+            });
+            console.log('Points after adding challenge points: ', points); // Debugging line
+            totalPoints = points;
+            document.getElementById('total-points').textContent = "Total Points: " + totalPoints;
+            updateBadges(totalPoints);
+    
+            if (totalPoints >= 501 && !rewardEarned) {
+                document.getElementById('reward-message').style.display = 'block';
+                rewardEarned = true;
+            }
+            console.log('Reward Earned: ', rewardEarned); // Debugging line
+        }
+    
+        userChallenges.forEach(function(challenge, index) {
+            displayChallenge(challenge, 'user-challenge-container');
+            document.querySelector('#user-challenge-container .challenge-item:last-child').dataset.index = index;
+        });
+    
+        console.log('User Challenges: ', userChallenges); // Debugging line
+    
+        // JavaScript code for generating challenges
+        var totalPoints = 0;
+        var completedChallenges = [];
+        var userChallenges = []; // Array to store user-added challenges
+    
+        console.log('Completed Challenges: ', completedChallenges); // Debugging line
+    
+        var challengeCategories = {
+    </script>
         // JavaScript code for generating challenges
         var totalPoints = 0;
         var completedChallenges = [];
