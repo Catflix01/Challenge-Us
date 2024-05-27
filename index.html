@@ -6,170 +6,163 @@
     <title>Challenge Generator</title>
     <style>
         /* CSS Styles */
-        body {
-            font-family: Cambria, sans-serif;
-            line-height: 1.6;
-            background-color: #636363;
-            color: #000000;
-            margin: 0;
-            padding: 0;
-        }
+        :root {
+    --primary-color: #007bff;
+    --secondary-color: #0056b3;
+    --background-color: #636363;
+    --text-color: #000000;
+    --white-color: #fff;
+    --light-grey: #f2f2f2;
+    --grey: #ccc;
+    --dark-grey: #bbb;
+    --font-size-large: 2em;
+    --font-size-medium: 1.2em;
+    --font-size-small: 1em;
+}
 
-        header, footer {
-            background-color: #007bff;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
+body, h1, p, footer p {
+    margin: 0;
+}
 
-        h1 {
-            font-size: 2em;
-            margin: 0;
-        }
+body {
+    font-family: Cambria, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 0;
+}
 
-        main {
-            padding: 20px;
-            text-align: center;
-        }
+header, footer, button {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    text-align: center;
+}
 
-        #categories {
-            margin-bottom: 20px;
-        }
+header, footer {
+    padding: 20px 0;
+}
 
-        label {
-            font-size: 1.2em;
-            margin-right: 15px;
-            cursor: pointer;
-        }
+h1 {
+    font-size: var(--font-size-large);
+}
 
-        button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 1.2em;
-        }
+main, #categories, #custom-challenge-form {
+    padding: 20px;
+}
 
-        button:hover {
-            background-color: #0056b3;
-        }
+#categories, #custom-challenge-form input[type="text"], #custom-challenge-form input[type="number"] {
+    margin-bottom: 20px;
+}
 
-        .challenge-container {
-            max-height: 300px;
-            overflow-y: auto;
-            width: 80%;
-            margin: 0 auto;
-            border: 2px solid #ccc;
-            border-radius: 6px;
-            padding: 10px;
-            background-color: #fff;
-        }
+label, button {
+    font-size: var(--font-size-medium);
+    cursor: pointer;
+}
 
-        .challenge-item {
-            margin-bottom: 10px;
-            padding: 15px;
-            border-radius: 6px;
-            background-color: #f2f2f2;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
+button {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
 
-        .challenge-item p {
-            margin: 0;
-            font-size: 1.1em;
-        }
+button:hover {
+    background-color: var(--secondary-color);
+}
 
-        .challenge-item .points {
-            font-weight: bold;
-            font-size: 1.1em;
-            color: #007bff;
-        }
+.challenge-container {
+    max-height: 300px;
+    overflow-y: auto;
+    width: 80%;
+    margin: 0 auto;
+    border: 2px solid var(--grey);
+    border-radius: 6px;
+    padding: 10px;
+    background-color: var(--white-color);
+}
 
-        footer p {
-            margin: 0;
-            font-size: 1em;
-        }
+.challenge-item, .dropdown-content {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-        /* Awards Section Styles */
-        #awards {
-            text-align: center;
-            margin-top: 50px;
-        }
+.challenge-item {
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 6px;
+    background-color: var(--light-grey);
+    position: relative;
+}
 
-        .badge-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+.challenge-item p, footer p {
+    font-size: var(--font-size-small);
+}
 
-        .badge {
-            margin: 10px;
-            font-size: 20px;
-            line-height: 1.5;
-        }
+.challenge-item .points {
+    font-weight: bold;
+    color: var(--primary-color);
+}
 
-        /* Form Styles */
-        #custom-challenge-form {
-            margin-top: 20px;
-        }
+#awards {
+    text-align: center;
+    margin-top: 50px;
+}
 
-        #custom-challenge-form input[type="text"],
-        #custom-challenge-form input[type="number"] {
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            width: 80%;
-            font-size: 1em;
-        }
+.badge-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
-        /* User challenges Section */
-        #user-challenges {
-            margin-top: 50px;
-        }
+.badge {
+    margin: 10px;
+    font-size: 20px;
+    line-height: 1.5;
+}
 
-        #user-challenges .challenge-container {
-            background-color: #f7f7f7;
-            border-color: #bbb;
-        }
+#custom-challenge-form input[type="text"], #custom-challenge-form input[type="number"] {
+    padding: 10px;
+    border: 1px solid var(--grey);
+    border-radius: 6px;
+    width: 80%;
+    font-size: var(--font-size-small);
+}
 
-        /* Settings Dropdown */
-        #settings-dropdown {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
+#user-challenges .challenge-container {
+    background-color: #f7f7f7;
+    border-color: var(--dark-grey);
+}
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
+#settings-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
 
-        .dropdown-content label {
-            display: block;
-            padding: 10px;
-            cursor: pointer;
-        }
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    z-index: 1;
+}
 
-        .dropdown-content label:hover {
-            background-color: #ddd;
-        }
+.dropdown-content label {
+    display: block;
+    padding: 10px;
+}
 
-        .dropdown-content label input[type="checkbox"] {
-            margin-right: 10px;
-        }
+.dropdown-content label:hover {
+    background-color: #ddd;
+}
 
-        #settings-dropdown:hover .dropdown-content {
-            display: block;
-        }
+.dropdown-content label input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+#settings-dropdown:hover .dropdown-content {
+    display: block;
+}
     </style>
 </head>
 <body>
